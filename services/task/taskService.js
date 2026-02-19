@@ -89,3 +89,31 @@ exports.updateTask = async (taskId, userId, updateData) => {
         throw handleServiceError(error, 'Error in updateTask');
     }
 };
+
+
+exports.removeTask = async (taskId, userId) => {
+    try {
+        // Find task that belongs to this user
+        const task = await Task.findOne({
+            where: {
+                id: taskId,
+                user_id: userId
+            }
+        });
+
+        if (!task) {
+            throw new CustomError('Task not found or unauthorized', 404);
+        }
+
+        // Delete task
+        await task.destroy();
+
+        return {
+            success: true,
+            message: 'Task deleted successfully'
+        };
+
+    } catch (error) {
+        throw handleServiceError(error, 'Error in removeTask');
+    }
+};
