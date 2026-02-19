@@ -61,3 +61,31 @@ exports.getAllTasks = async ({ userId, page = 1, limit = 10, status, priority, s
         throw handleServiceError(error, 'Error in getAllTasks');
     }
 };
+
+exports.updateTask = async (taskId, userId, updateData) => {
+    try {
+        // Check task exists & belongs to user
+        const task = await Task.findOne({
+            where: {
+                id: taskId,
+                user_id: userId
+            }
+        });
+
+        if (!task) {
+            throw new CustomError('Task not found or unauthorized', 404);
+        }
+
+        // Update task
+        await task.update(updateData);
+
+        return {
+            success: true,
+            message: 'Task updated successfully',
+            data: task
+        };
+
+    } catch (error) {
+        throw handleServiceError(error, 'Error in updateTask');
+    }
+};

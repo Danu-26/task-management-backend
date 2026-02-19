@@ -46,4 +46,17 @@ const getTaskSchema = Joi.object({
         .max(255)
         .optional()
 });
-module.exports = { userSignupSchema,userLoginSchema,createTaskSchema,getTaskSchema };
+
+
+const updateTaskSchema = Joi.object({
+    title: Joi.string().min(3).max(255).optional(),
+    description: Joi.string().allow('', null).optional(),
+    status: Joi.string()
+        .valid('TODO', 'IN_PROGRESS', 'DONE')
+        .optional(),
+    priority: Joi.string()
+        .valid('LOW', 'MEDIUM', 'HIGH')
+        .optional()
+});
+
+module.exports = { userSignupSchema,userLoginSchema,createTaskSchema,getTaskSchema ,updateTaskSchema};

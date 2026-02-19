@@ -20,3 +20,17 @@ exports.getAllTasks = async (req, res,next) => {
         next(error);
     }
 }
+
+exports.updateTask = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const taskId = req.params.id;
+        const updateData = req.body;
+
+        const result = await taskService.updateTask(taskId, userId, updateData);
+
+        return res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
