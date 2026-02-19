@@ -29,11 +29,17 @@ exports.register = async ({name, email, password}) => {
             email: user.email
         });
 
+        const response={
+            id: user.id,
+            name: user.username,
+            email: user.email,
+        }
 
        return {
            success:true,
             message: 'User registered successfully',
             data:{
+               user:response,
                token
             }
         };
@@ -71,10 +77,10 @@ exports.login = async ({ email, password}) => {
         return {
             success:true,
             message: 'Login successful',
-            token,
             data: {
-                user:response
-            },
+                user:response,
+                token
+            }
         };
     } catch (error) {
         console.error(error);

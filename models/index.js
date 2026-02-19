@@ -1,6 +1,7 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
+// Initialize Sequelize
 const sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
@@ -12,7 +13,6 @@ const sequelize = new Sequelize(
     }
 );
 
-// Import models
 const User = require('./user')(sequelize);
 const Task = require('./task')(sequelize);
 

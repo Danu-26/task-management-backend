@@ -15,11 +15,11 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT
     },
     status: {
-      type: DataTypes.ENUM('TODO', 'IN_PROGRESS', 'DONE'),
+      type: DataTypes.ENUM('TODO','IN_PROGRESS','DONE'),
       defaultValue: 'TODO'
     },
     priority: {
-      type: DataTypes.ENUM('LOW', 'MEDIUM', 'HIGH'),
+      type: DataTypes.ENUM('LOW','MEDIUM','HIGH'),
       defaultValue: 'MEDIUM'
     },
     user_id: {
@@ -28,7 +28,9 @@ module.exports = (sequelize) => {
     }
   }, {
     tableName: 'tasks',
-    timestamps: true
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   });
 
   return Task;
