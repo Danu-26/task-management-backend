@@ -20,4 +20,30 @@ const createTaskSchema = Joi.object({
     user_id: Joi.number().integer().required()
 });
 
-module.exports = { userSignupSchema,userLoginSchema,createTaskSchema };
+const getTaskSchema = Joi.object({
+    page: Joi.number()
+        .integer()
+        .min(1)
+        .default(1),
+
+    limit: Joi.number()
+        .integer()
+        .min(1)
+        .max(100)
+        .default(10),
+
+    status: Joi.string()
+        .valid('TODO', 'IN_PROGRESS', 'DONE')
+        .optional(),
+
+    priority: Joi.string()
+        .valid('LOW', 'MEDIUM', 'HIGH')
+        .optional(),
+
+    search: Joi.string()
+        .trim()
+        .min(1)
+        .max(255)
+        .optional()
+});
+module.exports = { userSignupSchema,userLoginSchema,createTaskSchema,getTaskSchema };
