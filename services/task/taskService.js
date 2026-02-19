@@ -117,3 +117,29 @@ exports.removeTask = async (taskId, userId) => {
         throw handleServiceError(error, 'Error in removeTask');
     }
 };
+
+exports.getTaskStats = async () => {
+    try {
+        // Count total tasks
+        const total = await Task.count();
+
+        // Count by status
+        const todo = await Task.count({ where: { status: 'TODO' } });
+        const inProgress = await Task.count({ where: { status: 'IN_PROGRESS' } });
+        const done = await Task.count({ where: { status: 'DONE' } });
+
+        return {
+            success: true,
+            message: 'Task stats fetched successfully',
+            data: {
+                total,
+                todo,
+                inProgress,
+                done
+            }
+        };
+
+    } catch (error) {
+        throw handleServiceError(error, 'Error in getTaskStats');
+    }
+};

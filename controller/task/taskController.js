@@ -14,7 +14,7 @@ exports.getAllTasks = async (req, res,next) => {
         const userId = req.user?.id;
         const {page,limit, status, priority, search}=req.body;
 
-        const result = await taskService.getAllTasks({userId,page , limit, status, priority, search});
+        const result = await taskService.getAllTasks({userId,page,limit, status, priority, search});
         return res.status(200).json(result);
     } catch (error) {
         next(error);
@@ -41,6 +41,16 @@ exports.removeTask = async (req, res, next) => {
         const taskId = req.params.id;
 
         const result = await taskService.removeTask(taskId, userId);
+
+        return res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getTaskStats = async (req, res, next) => {
+    try {
+        const result = await taskService.getTaskStats();
 
         return res.status(200).json(result);
     } catch (error) {
